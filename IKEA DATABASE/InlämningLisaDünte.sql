@@ -1,8 +1,9 @@
-DROP DATABASE IF EXISTS IKEA;
+-- DROP DATABASE IF EXISTS IKEA;
 CREATE DATABASE Ikea;
 
 USE IKEA;
 
+-- add a table for ll producttypes?
 CREATE TABLE Products(
 ProductID INT UNIQUE NOT NULL AUTO_INCREMENT,
 ProductName VARCHAR(255),
@@ -19,8 +20,9 @@ PRIMARY KEY(ProductID)
 );
 
 -- in exchange for all the info in shippers, customers and personal? maybe no good because a shipper can have the same ID as a customer because they are on different tables?
+-- Table for city+postcode and country?
 CREATE TABLE Adresses(
-ID INT UNIQUE,
+ID VARCHAR(255) UNIQUE,
 Street VARCHAR (255),
 HouseNr INT,
 PostCode INT,
@@ -29,55 +31,70 @@ Country VARCHAR (255),
 PRIMARY KEY (ID)
 ) DEFAULT CHARSET = Latin1;
 
--- CREATE TABLE Warehouse ?
+CREATE TABLE Warehouse(
+WarehouseID INT UNIQUE AUTO_INCREMENT NOT NULL,
+WarehouseName VARCHAR(255),
+AdressID VARCHAR(255),
+FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
+PRIMARY KEY (WarehouseID)
+) DEFAULT CHARSET = latin1;
+
+CREATE TABLE WarehouseStatus(
+WarehouseID INT,
+ProductID INT,
+Quantity INT,
+FOREIGN KEY (WarehouseID) REFERENCES Warehouse(WarehouseID),
+FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+PRIMARY KEY (WarehouseID, ProductID)
+) DEFAULT CHARSET = Latin1;
+
 
 -- maybe not needed? Interesting for shippers?
 CREATE TABLE Departments(
-DepartmentID INT UNIQUE AUTO_INCREMENT,
+DepartmentID INT UNIQUE AUTO_INCREMENT NOT NULL,
 DepartmentName VARCHAR (255),
 DepartmentHead VARCHAR (255),
-AdressID INT UNIQUE,
+AdressID VARCHAR(255),
 FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
 PRIMARY KEY (DepartmentID)
-);
+)DEFAULT CHARSET = Latin1;
 
 CREATE TABLE Salary(
 ID INT UNIQUE AUTO_INCREMENT,
 ContractBegin DATETIME DEFAULT NOW(),
-SalaryCategory VARCHAR (255),
 ContractForm VARCHAR (255),
 Salary FLOAT,
 PRIMARY KEY (ID)
 );
 
 CREATE TABLE Personal(
-PersonalID INT UNIQUE NOT NULL AUTO_INCREMENT,
+PersonalID INT UNIQUE AUTO_INCREMENT NOT NULL,
 PersonalName VARCHAR (255),
-AdressID INT UNIQUE,
+AdressID VARCHAR(255), -- shouldn't be unique, what if two persons live at the same place?
 DepartmentID INT,
 Phone VARCHAR(20),
 Email VARCHAR (60),
 Position VARCHAR(255),
-SalaryID INT UNIQUE,
+SalaryID INT,
 FOREIGN KEY (SalaryID) REFERENCES Salary(ID),
 FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID),
 FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
 PRIMARY KEY (PersonalID)
-);
+)DEFAULT CHARSET = Latin1;
 
 CREATE TABLE Shippers(
-ShipperID INT UNIQUE NOT NULL AUTO_INCREMENT,
+ShipperID INT UNIQUE AUTO_INCREMENT NOT NULL,
 ShipperName VARCHAR (255),
-AdressID INT UNIQUE,
+AdressID VARCHAR(255),
 ShipperPhone VARCHAR(255),
 FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
 PRIMARY KEY (ShipperID)
-);
+)DEFAULT CHARSET = Latin1;
 
 CREATE TABLE Customers(
-CustomerID INT UNIQUE NOT NULL AUTO_INCREMENT,
+CustomerID INT UNIQUE AUTO_INCREMENT NOT NULL,
 CustomerName VARCHAR (255),
-AdressID INT UNIQUE,
+AdressID VARCHAR(255),
 CustomerPhone VARCHAR (255),
 CustomerEmail VARCHAR (255),
 FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
@@ -95,7 +112,7 @@ OrderStatus VARCHAR (255),
 FOREIGN KEY (ShipperID) REFERENCES Shippers(ShipperID),
 FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
 PRIMARY KEY (OrderID)
-);
+)DEFAULT CHARSET = Latin1;
 
 -- beställningar (one orderID can have many products)
 CREATE TABLE OrderDetails(
