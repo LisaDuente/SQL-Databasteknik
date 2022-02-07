@@ -33,6 +33,8 @@ PRIMARY KEY (DepartmentID)
 );
 
 -- in exchange for all the info in shippers, customers and personal? maybe no good because a shipper can have the same ID as a customer because they are on different tables?
+-- should be ciphered
+-- maybe have a adressid for each adress that will be saved, replace street postalcode and so on with adress id
 CREATE TABLE Adresses(
 ID INT UNIQUE,
 Street VARCHAR (255),
@@ -41,7 +43,7 @@ PostCode INT,
 City VARCHAR (255),
 Country VARCHAR (255),
 PRIMARY KEY (ID)
-);
+) DEFAULT CHARSET = latin1;
 
 CREATE TABLE Personal(
 PersonalID INT UNIQUE NOT NULL AUTO_INCREMENT,
