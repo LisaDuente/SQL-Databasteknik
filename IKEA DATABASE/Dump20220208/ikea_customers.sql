@@ -16,30 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `salary`
+-- Table structure for table `customers`
 --
 
-DROP TABLE IF EXISTS `salary`;
+DROP TABLE IF EXISTS `customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `salary` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `ContractBegin` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ContractForm` varchar(255) DEFAULT NULL,
-  `Salary` float DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `customers` (
+  `CustomerID` int NOT NULL AUTO_INCREMENT,
+  `CustomerName` varchar(255) DEFAULT NULL,
+  `AdressID` varchar(255) DEFAULT NULL,
+  `CustomerPhone` varchar(255) DEFAULT NULL,
+  `CustomerEmail` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`CustomerID`),
+  UNIQUE KEY `CustomerID` (`CustomerID`),
+  KEY `AdressID` (`AdressID`),
+  CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`AdressID`) REFERENCES `adresses` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `salary`
+-- Dumping data for table `customers`
 --
 
-LOCK TABLES `salary` WRITE;
-/*!40000 ALTER TABLE `salary` DISABLE KEYS */;
-INSERT INTO `salary` VALUES (1,'2022-02-04 00:00:00','Full-Time',2800.8),(2,'2022-02-04 15:28:27','Part-Time',1400.4),(3,'2022-02-04 15:28:48','Internship',0),(4,'2022-02-04 15:28:51','Temporary Employment',2800.8),(5,'2022-02-04 15:28:53','Fixed-Term',2800.8);
-/*!40000 ALTER TABLE `salary` ENABLE KEYS */;
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'Georg Schuppe','A1','0123456','Georg@Gerne.se'),(2,'Lisa Dünte','A1','0123456','Lisa@Lachen.de'),(3,'Toto','A1','0123456','-');
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-04 16:47:37
+-- Dump completed on 2022-02-08 10:21:29

@@ -16,31 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `warehousestatus`
+-- Table structure for table `personal`
 --
 
-DROP TABLE IF EXISTS `warehousestatus`;
+DROP TABLE IF EXISTS `personal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `warehousestatus` (
-  `WarehouseID` int NOT NULL,
-  `ProductID` int NOT NULL,
-  `Quantity` int DEFAULT NULL,
-  PRIMARY KEY (`WarehouseID`,`ProductID`),
-  KEY `ProductID` (`ProductID`),
-  CONSTRAINT `warehousestatus_ibfk_1` FOREIGN KEY (`WarehouseID`) REFERENCES `warehouse` (`WarehouseID`),
-  CONSTRAINT `warehousestatus_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `personal` (
+  `PersonalID` int NOT NULL AUTO_INCREMENT,
+  `PersonalName` varchar(255) DEFAULT NULL,
+  `AdressID` varchar(255) DEFAULT NULL,
+  `DepartmentID` int DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `Email` varchar(60) DEFAULT NULL,
+  `Position` varchar(255) DEFAULT NULL,
+  `SalaryID` int DEFAULT NULL,
+  PRIMARY KEY (`PersonalID`),
+  UNIQUE KEY `PersonalID` (`PersonalID`),
+  KEY `SalaryID` (`SalaryID`),
+  KEY `DepartmentID` (`DepartmentID`),
+  KEY `AdressID` (`AdressID`),
+  CONSTRAINT `personal_ibfk_1` FOREIGN KEY (`SalaryID`) REFERENCES `salary` (`ID`),
+  CONSTRAINT `personal_ibfk_2` FOREIGN KEY (`DepartmentID`) REFERENCES `departments` (`DepartmentID`),
+  CONSTRAINT `personal_ibfk_3` FOREIGN KEY (`AdressID`) REFERENCES `adresses` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `warehousestatus`
+-- Dumping data for table `personal`
 --
 
-LOCK TABLES `warehousestatus` WRITE;
-/*!40000 ALTER TABLE `warehousestatus` DISABLE KEYS */;
-INSERT INTO `warehousestatus` VALUES (2,1,150),(2,8,150),(2,9,20),(2,11,20);
-/*!40000 ALTER TABLE `warehousestatus` ENABLE KEYS */;
+LOCK TABLES `personal` WRITE;
+/*!40000 ALTER TABLE `personal` DISABLE KEYS */;
+INSERT INTO `personal` VALUES (1,'Georg Schuppe','A8',1,'017786374','Georg@Gutgelaunt.de','Human Ressource',1),(2,'Lisa Dünte','A8',1,'017786374','Lisa@LachLaut.de','Head of Department',1);
+/*!40000 ALTER TABLE `personal` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-04 16:47:37
+-- Dump completed on 2022-02-08 10:21:29

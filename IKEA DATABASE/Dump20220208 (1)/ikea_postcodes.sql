@@ -16,35 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `orders`
+-- Table structure for table `postcodes`
 --
 
-DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `postcodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orders` (
-  `OrderID` int NOT NULL AUTO_INCREMENT,
-  `CustomerID` int DEFAULT NULL,
-  `OrderDate` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ShippingDate` datetime DEFAULT NULL,
-  `ShipperID` int DEFAULT NULL,
-  `OrderStatus` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`OrderID`),
-  UNIQUE KEY `OrderID` (`OrderID`),
-  KEY `ShipperID` (`ShipperID`),
-  KEY `CustomerID` (`CustomerID`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ShipperID`) REFERENCES `shippers` (`ShipperID`),
-  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `postcodes` (
+  `PostCode` int NOT NULL,
+  `CityID` int NOT NULL,
+  `ID` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`),
+  KEY `CityID` (`CityID`),
+  CONSTRAINT `postcodes_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `cities` (`CityID`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `orders`
+-- Dumping data for table `postcodes`
 --
 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+LOCK TABLES `postcodes` WRITE;
+/*!40000 ALTER TABLE `postcodes` DISABLE KEYS */;
+INSERT INTO `postcodes` VALUES (1050,3,1),(1054,3,2),(9850,7,3),(10115,5,4),(10117,5,5),(11121,2,6),(11123,2,7),(21111,6,8),(21113,6,9),(30159,1,10),(30173,1,11),(69001,8,12),(69002,8,13),(75000,4,14),(75001,4,15);
+/*!40000 ALTER TABLE `postcodes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-04 16:47:37
+-- Dump completed on 2022-02-08 10:58:28

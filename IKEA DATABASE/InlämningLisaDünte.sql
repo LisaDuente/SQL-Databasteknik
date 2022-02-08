@@ -3,31 +3,62 @@ CREATE DATABASE Ikea;
 
 USE IKEA;
 
--- add a table for ll producttypes?
+CREATE TABLE ProductTypes(
+TypeID VARCHAR(3) NOT NULL,
+ProductType VARCHAR(255),
+PRIMARY KEY (TypeID)
+) DEFAULT CHARSET = Latin1;
+
 CREATE TABLE Products(
 ProductID INT UNIQUE NOT NULL AUTO_INCREMENT,
 ProductName VARCHAR(255),
-PorductType VARCHAR(255),
+TypeID VARCHAR(255),
 WarehouseStatus VARCHAR (255),
--- WareHouseName VARCHAR (255),
 Length FLOAT,
 Width FLOAT,
 Height FLOAT,
 Weigth FLOAT,
 Colour VARCHAR(60),
 Price FLOAT,
+FOREIGN KEY (TypeID) REFERENCES ProductTypes(TypeID),
 PRIMARY KEY(ProductID)
-);
+) DEFAULT CHARSET = latin1;
 
--- in exchange for all the info in shippers, customers and personal? maybe no good because a shipper can have the same ID as a customer because they are on different tables?
--- Table for city+postcode and country?
+CREATE TABLE Countries(
+ID VARCHAR(3),
+CountryName VARCHAR(255),
+PRIMARY KEY (ID)
+) DEFAULT CHARSET = latin1;
+
+CREATE TABLE Cities(
+CityID INT NOT NULL,
+CityName VARCHAR(255),
+CountryID VARCHAR(3),
+FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+PRIMARY KEY(CityID)
+) DEFAULT CHARSET = latin1;
+
+CREATE TABLE Postcodes(
+ID INT NOT NULL AUTO_INCREMENT,
+PostCode INT NOT NULL,
+CityID INT,
+FOREIGN KEY (CityID) REFERENCES Cities(CityID),
+PRIMARY KEY (ID)
+) DEFAULT CHARSET = latin1;
+
+CREATE TABLE Streets(
+StreetID INT NOT NULL AUTO_INCREMENT,
+StreetName VARCHAR(255),
+Housenr INT,
+PostCodeID INT,
+FOREIGN KEY (PostCodeID) REFERENCES Postcodes(ID),
+PRIMARY KEY (StreetID)
+) DEFAULT CHARSET = latin1;
+
 CREATE TABLE Adresses(
 ID VARCHAR(255) UNIQUE,
-Street VARCHAR (255),
-HouseNr INT,
-PostCode INT,
-City VARCHAR (255),
-Country VARCHAR (255),
+StreetID INT,
+FOREIGN KEY (StreetID) REFERENCES Streets(StreetID),
 PRIMARY KEY (ID)
 ) DEFAULT CHARSET = Latin1;
 
@@ -101,6 +132,12 @@ FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
 PRIMARY KEY (CustomerID)
 ) DEFAULT CHARSET = Latin1;
 
+CREATE TABLE OrderStatus(
+StatusID INT NOT NULL,
+StatusName VARCHAR(255),
+PRIMARY KEY (StatusID)
+) DEFAULT CHARSET = latin1;
+
 -- Transaktionshistorik
 CREATE TABLE Orders(
 OrderID INT UNIQUE NOT NULL AUTO_INCREMENT,
@@ -108,7 +145,8 @@ CustomerID INT,
 OrderDate DATETIME DEFAULT NOW(),
 ShippingDate DATETIME,
 ShipperID INT,
-OrderStatus VARCHAR (255),
+OrderStatusID INT NOT NULL,
+FOREIGN KEY (OrderStatusID) REFERENCES OrderStatus(StatusID),
 FOREIGN KEY (ShipperID) REFERENCES Shippers(ShipperID),
 FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
 PRIMARY KEY (OrderID)

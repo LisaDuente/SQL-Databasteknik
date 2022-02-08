@@ -1,6 +1,6 @@
 USE Ikea;
 -- problems to solve:
--- add a table for all product types?
+-- change insert customer, warehouse, shippers, department, personal to add everything in the new tables
 -- stored procedure to count all the items in different warehouses / View? 
 -- how to update warehous status on products?
 -- do a nested join to reach warehouse, product and productstatus
@@ -15,6 +15,12 @@ USE Ikea;
 -- view: personal + salary + contracttype
 -- make a repport from those views
 
+-- alter tables
+ALTER TABLE products CONVERT TO CHARACTER SET latin1; 
+ALTER TABLE Orders MODIFY COLUMN OrderStatus INT;
+ALTER TABLE Orders RENAME COLUMN OrderStausID TO OrderStatusID;
+ALTER TABLE Orders CHANGE OrderStatusID OrderStatusID INT NOT NULL; 
+
 -- insert various new people, shippers, Warehouses and departments
 CALL insertNewShipper('BigBernd','0177 45678','Hahnenweg',21,567890,'Huddinge','Sverige');
 CALL insertNewCustomer('Toto','0123456','-','Bambelbinengarten',4,123456,'Stockholm','Sverige');
@@ -22,7 +28,9 @@ CALL insertNewDepartment('Production','Patrik Selberg','Buxtehudestrasse',3,1234
 CALL insertNewPersonal('Lisa Dünte', 1, '017786374','Lisa@LachLaut.de','Head of Department',1,'Crabway',89, 1234567,'Oceantown','Sweden');
 CALL insertNewWarehouse('Lager Norrmalm', 'Duennestrasse',4,145678,'Stockholm','Sweden');
 CALL insertNewWarehouse('Lager Södermalm', 'Babelberggarten',4,145678,'Stockholm','Sweden');
-CALL insertNewProduct('Choclad Kudde','Pillow',20,20,10,4,'Brown',5.99,2,20);
+CALL insertNewProduct('Choclad Kudde','P',20,20,10,4,'Brown',5.99,2,20);
+-- shouldn't work
+CALL insertNewProduct('Choclad Kudde','A',20,20,10,4,'Brown',5.99,2,20);
 
 -- update various things
 CALL updateCustomerAdress(2,'Bambelbinengarten',4,123456,'Stockholm','Sverige');
@@ -66,6 +74,9 @@ SELECT * FROM Personal;
 SELECT * FROM Warehouse;
 SELECT * FROM WarehouseStatus;
 SELECT * FROM Products;
+SELECT * FROM ProductTypes;
+SELECT * FROM orderstatus;
+SELECT * FROM Orders;
 
 -- Do a join to get out the information you wish
 SELECT PersonalName, Street, HouseNR, City, Country FROM Personal AS P

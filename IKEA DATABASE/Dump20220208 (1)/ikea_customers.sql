@@ -16,32 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `shippers`
+-- Table structure for table `customers`
 --
 
-DROP TABLE IF EXISTS `shippers`;
+DROP TABLE IF EXISTS `customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `shippers` (
-  `ShipperID` int NOT NULL AUTO_INCREMENT,
-  `ShipperName` varchar(255) DEFAULT NULL,
+CREATE TABLE `customers` (
+  `CustomerID` int NOT NULL AUTO_INCREMENT,
+  `CustomerName` varchar(255) DEFAULT NULL,
   `AdressID` varchar(255) DEFAULT NULL,
-  `ShipperPhone` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ShipperID`),
-  UNIQUE KEY `ShipperID` (`ShipperID`),
+  `CustomerPhone` varchar(255) DEFAULT NULL,
+  `CustomerEmail` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`CustomerID`),
+  UNIQUE KEY `CustomerID` (`CustomerID`),
   KEY `AdressID` (`AdressID`),
-  CONSTRAINT `shippers_ibfk_1` FOREIGN KEY (`AdressID`) REFERENCES `adresses` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`AdressID`) REFERENCES `adresses` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `shippers`
+-- Dumping data for table `customers`
 --
 
-LOCK TABLES `shippers` WRITE;
-/*!40000 ALTER TABLE `shippers` DISABLE KEYS */;
-INSERT INTO `shippers` VALUES (1,'BambooFactory','A1','0177 45678'),(2,'BambooFactory','A2','0177 45678'),(3,'TomBoy','A3','0177 45678'),(4,'TomBoy','A4','0177 45678'),(5,'TomBoy','A5','0177 45678'),(6,'BigBernd','A5','0177 45678');
-/*!40000 ALTER TABLE `shippers` ENABLE KEYS */;
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'Georg Schuppe','A1','0123456','Georg@Gerne.se'),(2,'Lisa Dünte','A1','0123456','Lisa@Lachen.de'),(3,'Toto','A1','0123456','-');
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-04 16:47:37
+-- Dump completed on 2022-02-08 10:58:28
