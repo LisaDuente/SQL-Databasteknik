@@ -1,6 +1,7 @@
 USE Ikea;
 -- problems to solve:
--- change insert customer, warehouse, shippers, department, personal to add everything in the new tables
+-- change streets to just the names of possible streets? What to do with the houseNr?
+-- change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables
 -- stored procedure to count all the items in different warehouses / View? 
 -- how to update warehous status on products?
 -- do a nested join to reach warehouse, product and productstatus
@@ -8,8 +9,8 @@ USE Ikea;
 -- place order function?
 
 -- things to do
+-- stored procedure: update stock
 -- view for kund+bankinfo
--- view: order + bestellstatus
 -- view: product + warehousestatus
 -- view: personal + department
 -- view: personal + salary + contracttype
@@ -22,13 +23,13 @@ ALTER TABLE Orders RENAME COLUMN OrderStausID TO OrderStatusID;
 ALTER TABLE Orders CHANGE OrderStatusID OrderStatusID INT NOT NULL; 
 
 -- insert various new people, shippers, Warehouses and departments
-CALL insertNewShipper('BigBernd','0177 45678','Hahnenweg',21,567890,'Huddinge','Sverige');
-CALL insertNewCustomer('Toto','0123456','-','Bambelbinengarten',4,123456,'Stockholm','Sverige');
-CALL insertNewDepartment('Production','Patrik Selberg','Buxtehudestrasse',3,123456,'Stockholm','Sverige');
-CALL insertNewPersonal('Lisa Dünte', 1, '017786374','Lisa@LachLaut.de','Head of Department',1,'Crabway',89, 1234567,'Oceantown','Sweden');
-CALL insertNewWarehouse('Lager Norrmalm', 'Duennestrasse',4,145678,'Stockholm','Sweden');
-CALL insertNewWarehouse('Lager Södermalm', 'Babelberggarten',4,145678,'Stockholm','Sweden');
-CALL insertNewProduct('Choclad Kudde','P',20,20,10,4,'Brown',5.99,2,20);
+-- CALL insertNewShipper('BigBernd','0177 45678','Hahnenweg',21,567890,'Huddinge','Sverige');
+-- CALL insertNewCustomer('Toto','0123456','-','Bambelbinengarten',4,123456,'Stockholm','Sverige');
+-- CALL insertNewDepartment('Production','Patrik Selberg','Buxtehudestrasse',3,123456,'Stockholm','Sverige');
+-- CALL insertNewPersonal('Lisa Dünte', 1, '017786374','Lisa@LachLaut.de','Head of Department',1,'Crabway',89, 1234567,'Oceantown','Sweden');
+-- CALL insertNewWarehouse('Lager Norrmalm', 'Duennestrasse',4,145678,'Stockholm','Sweden');
+-- CALL insertNewWarehouse('Lager Södermalm', 'Babelberggarten',4,145678,'Stockholm','Sweden');
+-- CALL insertNewProduct('Choclad Kudde','P',20,20,10,4,'Brown',5.99,2,20);
 -- shouldn't work
 CALL insertNewProduct('Choclad Kudde','A',20,20,10,4,'Brown',5.99,2,20);
 
