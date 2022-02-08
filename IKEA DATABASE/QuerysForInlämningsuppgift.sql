@@ -2,18 +2,18 @@ USE Ikea;
 -- problems to solve:
 -- change streets to just the names of possible streets? What to do with the houseNr?
 -- change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables
--- stored procedure to count all the items in different warehouses / View? 
 -- how to update warehous status on products?
 -- do a nested join to reach warehouse, product and productstatus
 -- trigger on order to orderdetails
--- place order function?
 
--- things to do
+-- THINGS TO DO
+-- encryption / decryption
+-- Transaction History
+-- procedure: place an order (upate warehousestatus)
+-- update insert functions because of  new adress structure
 -- stored procedure: update stock
+-- table for bank info customer
 -- view for kund+bankinfo
--- view: product + warehousestatus
--- view: personal + department
--- view: personal + salary + contracttype
 -- make a repport from those views
 
 -- alter tables

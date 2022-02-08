@@ -94,9 +94,18 @@ CREATE TABLE Salary(
 ID INT UNIQUE AUTO_INCREMENT,
 ContractBegin DATETIME DEFAULT NOW(),
 ContractForm VARCHAR (255),
-Salary FLOAT,
+`€/hr` FLOAT,
+AvgHours FLOAT,
 PRIMARY KEY (ID)
 );
+
+CREATE TABLE ReportedHours(
+PersonalID INT,
+WorkedHours FLOAT,
+`Date` TIMESTAMP DEFAULT NOW(),
+FOREIGN KEY (PersonalID) REFERENCES Personal(PersonalID),
+PRIMARY KEY (PersonalID, `date`)
+) DEFAULT CHARSET = latin1;
 
 CREATE TABLE Personal(
 PersonalID INT UNIQUE AUTO_INCREMENT NOT NULL,
