@@ -2,14 +2,11 @@ USE Ikea;
 -- problems to solve:
 -- change streets to just the names of possible streets? What to do with the houseNr?
 -- change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables // make a trigger and no stored procedure
--- how to update warehous status on products?
--- do a nested join to reach warehouse, product and productstatus
--- trigger on order to orderdetails
 -- tillsätter nya mängder av produkten i lager
 
 -- QUESTIONS FOR HANDLEDNING:
 -- How to make an insert that checks all adress information and inserts missing information (like new street, link it with country and city and postcode) Transaction?
--- can you make a stored procedure with a flexible number of parameters?
+-- can you make a stored procedure with a flexible number of parameters? now you can only order one thing (make a function add to order? with the same order iD)
 
 -- THINGS TO DO
 -- encryption / decryption
