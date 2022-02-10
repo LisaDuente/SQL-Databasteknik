@@ -1,26 +1,28 @@
 USE Ikea;
 -- problems to solve:
 -- change streets to just the names of possible streets? What to do with the houseNr?
--- change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables
+-- change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables // make a trigger and no stored procedure
 -- how to update warehous status on products?
 -- do a nested join to reach warehouse, product and productstatus
 -- trigger on order to orderdetails
+-- tillsätter nya mängder av produkten i lager
+
+-- QUESTIONS FOR HANDLEDNING:
+-- How to make an insert that checks all adress information and inserts missing information (like new street, link it with country and city and postcode) Transaction?
+-- can you make a stored procedure with a flexible number of parameters?
 
 -- THINGS TO DO
 -- encryption / decryption
 -- Transaction History
--- procedure: place an order (upate warehousestatus)
 -- update insert functions because of  new adress structure
 -- stored procedure: update stock
--- table for bank info customer
--- view for kund+bankinfo
+-- view for invoice kundname + productname + price + total ammount (when the date is the same)
 -- make a repport from those views
 
 -- alter tables
 ALTER TABLE products CONVERT TO CHARACTER SET latin1; 
-ALTER TABLE Orders MODIFY COLUMN OrderStatus INT;
 ALTER TABLE Orders RENAME COLUMN OrderStausID TO OrderStatusID;
-ALTER TABLE Orders CHANGE OrderStatusID OrderStatusID INT NOT NULL; 
+ALTER TABLE Warehousestatus CHANGE Quantity Quantity INT UNSIGNED; 
 
 -- insert various new people, shippers, Warehouses and departments
 -- CALL insertNewShipper('BigBernd','0177 45678','Hahnenweg',21,567890,'Huddinge','Sverige');
@@ -56,6 +58,8 @@ INSERT INTO Products VALUES(Null, 'Liquorice Lamp', 'Lamp', 80,20,120,6,'Black',
 -- Place to alter, delete and drop things
 START TRANSACTION;
 
+CALL placeAnOrder(1,5,40,6);
+
 DROP TABLE PERSONAL;
 ALTER TABLE Products DROP COLUMN WarehouseStatus;
 ALTER TABLE Warehouse ADD WarehouseName VARCHAR(255);
@@ -78,6 +82,7 @@ SELECT * FROM Products;
 SELECT * FROM ProductTypes;
 SELECT * FROM orderstatus;
 SELECT * FROM Orders;
+SELECT * FROM Orderdetails;
 
 -- Do a join to get out the information you wish
 SELECT PersonalName, Street, HouseNR, City, Country FROM Personal AS P

@@ -73,7 +73,7 @@ PRIMARY KEY (WarehouseID)
 CREATE TABLE WarehouseStatus(
 WarehouseID INT,
 ProductID INT,
-Quantity INT,
+Quantity INT UNSIGNED,
 FOREIGN KEY (WarehouseID) REFERENCES Warehouse(WarehouseID),
 FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
 PRIMARY KEY (WarehouseID, ProductID)
@@ -140,6 +140,17 @@ CustomerEmail VARCHAR (255),
 FOREIGN KEY (AdressID) REFERENCES Adresses(ID),
 PRIMARY KEY (CustomerID)
 ) DEFAULT CHARSET = Latin1;
+
+-- no new table for BIC because of safty in encryption
+CREATE TABLE BankInformation(
+CustomerID INT NOT NULL,
+IBAN VARCHAR(255),
+BIC Varchar(30),
+KreditNr INT,
+KreditCode INT,
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+PRIMARY KEY (CustomerID)
+);
 
 CREATE TABLE OrderStatus(
 StatusID INT NOT NULL,
