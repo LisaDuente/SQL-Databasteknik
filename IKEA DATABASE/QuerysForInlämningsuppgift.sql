@@ -1,18 +1,16 @@
 USE Ikea;
 -- problems to solve:
 -- change streets to just the names of possible streets? What to do with the houseNr?
--- change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables // make a trigger and no stored procedure
--- tillsätter nya mängder av produkten i lager
 
 -- QUESTIONS FOR HANDLEDNING:
+-- why can't I declare multiple variables in MYSQl??? !!!!!!!!!!!!!!!
 -- How to make an insert that checks all adress information and inserts missing information (like new street, link it with country and city and postcode) Transaction?
--- can you make a stored procedure with a flexible number of parameters? now you can only order one thing (make a function add to order? with the same order iD)
+-- can you make a stored procedure with a flexible number of parameters? now you can only order one thing (make a function add to order? with the same order iD) 
 
 -- THINGS TO DO
 -- encryption / decryption
--- Transaction History
--- update insert functions because of  new adress structure
--- stored procedure: update stock
+-- Transaction History (Triggers for changin adresses, triggers for changin bankinfo)
+-- update insert functions because of  new adress structure change insert customer (started a procedure), warehouse, shippers, department, personal to add everything in the new tables // make a trigger and no stored procedure
 -- view for invoice kundname + productname + price + total ammount (when the date is the same)
 -- make a repport from those views
 
@@ -55,7 +53,8 @@ INSERT INTO Products VALUES(Null, 'Liquorice Lamp', 'Lamp', 80,20,120,6,'Black',
 -- Place to alter, delete and drop things
 START TRANSACTION;
 
-CALL placeAnOrder(1,5,40,6);
+CALL placeAnOrder(2,2,2,4);
+CALL StockUpp(2,5,20);
 
 DROP TABLE PERSONAL;
 ALTER TABLE Products DROP COLUMN WarehouseStatus;
@@ -95,5 +94,9 @@ INNER JOIN Departments AS D
 WHERE P.PersonalName = D.DepartmentHead;
 
 -- to reach warehouse, product and status you need to do a nested join!
+
+-- things for the reflection:
+-- it's hard to make inserts and updates for tables that are higly normalised
+-- made a table for Transations but noticed that I don't need one for orders to get a transaction history
 
 

@@ -158,6 +158,12 @@ StatusName VARCHAR(255),
 PRIMARY KEY (StatusID)
 ) DEFAULT CHARSET = latin1;
 
+CREATE TABLE PayStatus(
+ID INT AUTO_INCREMENT NOT NULL,
+StatusName VARCHAR(255),
+PRIMARY KEY (ID)
+);
+
 -- Transaktionshistorik
 CREATE TABLE Orders(
 OrderID INT UNIQUE NOT NULL AUTO_INCREMENT,
@@ -166,6 +172,8 @@ OrderDate DATETIME DEFAULT NOW(),
 ShippingDate DATETIME,
 ShipperID INT,
 OrderStatusID INT NOT NULL,
+PayStatus INT,
+FOREIGN KEY (PayStatus) REFERENCES PayStats(ID),
 FOREIGN KEY (OrderStatusID) REFERENCES OrderStatus(StatusID),
 FOREIGN KEY (ShipperID) REFERENCES Shippers(ShipperID),
 FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
@@ -174,12 +182,27 @@ PRIMARY KEY (OrderID)
 
 -- beställningar (one orderID can have many products)
 CREATE TABLE OrderDetails(
-OrderID INT,
-ProductID INT,
+OrderID INT NOT NULL,
+ProductID INT NOT NULL,
 PriceEach FLOAT,
 Quantity INT,
 FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
 FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
 PRIMARY KEY (OrderID, ProductID)
+);
+
+CREATE TABLE TransactionType (
+ID INT AUTO_INCREMENT,
+`Type` VARCHAR(255),
+PRIMARY KEY (ID)
+);
+
+CREATE TABLE TransactionHistory(
+ID INT AUTO_INCREMENT,
+`Type` INT,
+`Date` TIMESTAMP DEFAULT NOW(),
+`Reference` VARCHAR(255),
+FOREIGN KEY (`Type`) REFERENCES TransactionType(ID),
+PRIMARY KEY (ID)
 );
 
