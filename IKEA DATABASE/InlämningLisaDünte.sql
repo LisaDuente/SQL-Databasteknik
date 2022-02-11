@@ -146,11 +146,11 @@ CREATE TABLE BankInformation(
 CustomerID INT NOT NULL,
 IBAN VARCHAR(255),
 BIC Varchar(30),
-KreditNr INT,
-KreditCode INT,
+KreditNr VARCHAR(255),
+KreditCode VARCHAR(255),
 FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
 PRIMARY KEY (CustomerID)
-);
+) DEFAULT CHARSET = latin1;
 
 CREATE TABLE OrderStatus(
 StatusID INT NOT NULL,
@@ -173,6 +173,7 @@ ShippingDate DATETIME,
 ShipperID INT,
 OrderStatusID INT NOT NULL,
 PayStatus INT,
+Total FLOAT UNSIGNED,
 FOREIGN KEY (PayStatus) REFERENCES PayStats(ID),
 FOREIGN KEY (OrderStatusID) REFERENCES OrderStatus(StatusID),
 FOREIGN KEY (ShipperID) REFERENCES Shippers(ShipperID),
