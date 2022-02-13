@@ -1,4 +1,5 @@
 USE Ikea;
+SET autocommit = 0;
 -- problems to solve:
 -- change streets to just the names of possible streets? What to do with the houseNr?
 
@@ -66,7 +67,7 @@ COMMIT;
 ROLLBACK;
 
 -- Select from various tables
-
+SELECT SUM(Quantity) FROM WarehouseStatus WHERE ProductID = 4;
 SELECT * FROM information_schema.TABLE_CONSTRAINTS;
 SELECT * FROM Shippers;
 SELECT * FROM Customers;
