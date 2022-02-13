@@ -54,7 +54,7 @@ INSERT INTO Products VALUES(Null, 'Liquorice Lamp', 'Lamp', 80,20,120,6,'Black',
 -- Place to alter, delete and drop things
 START TRANSACTION;
 
-CALL placeAnOrder(2,"5,7","199,200",4);
+CALL PlaceMultipleOrders(2,"4,10","20,4",4);
 CALL StockUpp(2,5,20);
 
 DROP TABLE PERSONAL;
@@ -66,6 +66,7 @@ COMMIT;
 ROLLBACK;
 
 -- Select from various tables
+
 SELECT * FROM information_schema.TABLE_CONSTRAINTS;
 SELECT * FROM Shippers;
 SELECT * FROM Customers;
