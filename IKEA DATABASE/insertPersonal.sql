@@ -1,18 +1,12 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertCustomer`(CName VARCHAR(255), CStreet VARCHAR(255), CHouseNr INT, CPostCode INT, CCity VARCHAR(255), CCountry VARCHAR(255), CPhone VARCHAR(255), CMail VARCHAR(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPersonal`(PName VARCHAR(255), CStreet VARCHAR(255), CHouseNr INT, CPostCode INT, CCity VARCHAR(255), CCountry VARCHAR(255), PDepartment INT, PPhone VARCHAR (255), PEmail VARCHAR (255), PPosition VARCHAR(255), PSalary INT)
 ADProcess: BEGIN
 
- -- DECLARE BoolCity INT;
--- DECLARE BoolPostcode TINYINT;
--- DECLARE BoolStreet TINYINT;
-
--- use case?
 -- if everything exists
 IF EXISTS(SELECT StreetName, HouseNr, Postcode, CityName, CountryName FROM adressView WHERE StreetName = CStreet AND HouseNR = CHouseNR AND PostCode = CPostCode AND CityName = CCity AND CountryName = CCountry) THEN
-	INSERT INTO Customers 
-		VALUES(NULL, CNAME, (SELECT ID FROM adressView AS DA WHERE DA.StreetName = CStreet AND DA.HouseNR = CHouseNR AND DA.PostCode = CPostCode AND CityName = CCity AND DA.CountryName = CCountry GROUP BY ID), CPhone, CMail);
+    INSERT INTO Personal
+		VALUES(NULL, PName, (SELECT ID FROM adressView AS DA WHERE DA.StreetName = CStreet AND DA.HouseNR = CHouseNR AND DA.PostCode = CPostCode AND CityName = CCity AND DA.CountryName = CCountry GROUP BY ID), PDepartment, PPhone, PEmail, PPosition, PSalary);
         LEAVE ADProcess;
 ELSE
-	-- create new adress id?
     -- check the countryID, if its not in the databank, leave the process
 	IF EXISTS(SELECT CountryName FROM Countries WHERE CountryName = CCountry) THEN
 		SELECT @thisCountryID := ID FROM Countries WHERE CountryName = CCountry;
@@ -32,7 +26,7 @@ ELSE
         INSERT INTO Streets VALUES (@tempStreetID, @tempPostCodeId, CStreet, CHouseNR);
         SELECT @tempAdressID := createAdressID();
         INSERT INTO Adresses VALUES (@tempAdressID, @tempStreetID);
-        INSERT INTO Customers VALUES (NULL, CName, @tempAdressID, CPhone, CMail);
+        INSERT INTO Personal VALUES (NULL, PName, @tempAdressID, PDepartment, PPhone, PEmail, PPosition, PSalary);
         LEAVE ADProcess;
 	END IF;
     
@@ -45,7 +39,7 @@ ELSE
         INSERT INTO Streets VALUES (@tempStreetID, @tempPostCodeId, CStreet, CHouseNR);
         SELECT @tempAdressID := createAdressID();
         INSERT INTO Adresses VALUES (@tempAdressID, @tempStreetID);
-        INSERT INTO Customers VALUES (NULL, CName, @tempAdressID, CPhone, CMail);
+        INSERT INTO Personal VALUES (NULL, PName, @tempAdressID, PDepartment, PPhone, PEmail, PPosition, PSalary);
         LEAVE ADProcess;
 	END IF;
     
@@ -56,7 +50,7 @@ ELSE
         INSERT INTO Streets VALUES (@tempStreetID, @thisPostCodeId, CStreet, CHouseNR);
         SELECT @tempAdressID := createAdressID();
         INSERT INTO Adresses VALUES (@tempAdressID, @tempStreetID);
-        INSERT INTO Customers VALUES (NULL, CName, @tempAdressID, CPhone, CMail);
+        INSERT INTO Personal VALUES (NULL, PName, @tempAdressID, PDepartment, PPhone, PEmail, PPosition, PSalary);
         LEAVE ADProcess;
 	END IF;
 		

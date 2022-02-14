@@ -2,6 +2,6 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `createAdressID`() RETURNS varchar(25
     DETERMINISTIC
 BEGIN
 
-RETURN (SELECT CONCAT('A', (COUNT(ID)+1))
+RETURN (SELECT (COUNT(ID)+1)
 FROM Adresses);
 END
