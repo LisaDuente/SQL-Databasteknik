@@ -1,15 +1,15 @@
 USE Ikea;
 SET autocommit = 0;
 -- problems to solve:
-
+SELECT CustomerID, REPLACE(CAST(AES_DECRYPT(IBAN, "123Test") AS CHAR (255)), CustomerID,"") AS IBAN, REPLACE(CAST(AES_DECRYPT(BIC, "123Test") AS CHAR (255)), CustomerID,"") AS BIC FROM Bankinformation;
 -- QUESTIONS FOR HANDLEDNING:
 
 -- THINGS TO DO
 -- trigger update shippingstatus?
+-- trigger update customer on bankinformation
+-- Stored procedure to show all changes in a customer?
 -- reflection
--- ER diagramm
--- Transaction History (Triggers for changin adresses)
--- procedures to update/change adresses
+-- ER diagramm (förhållandet mellan transaction history)
 -- view for invoice kundname + productname + price + total ammount (when the date is the same) or just add it in orders?
 -- make a repport from those views
 
@@ -30,6 +30,7 @@ INSERT INTO BankInformation VALUES (2,"lala","bärbel","234567890","123456");
 -- Place to alter, delete and drop things
 START TRANSACTION;
 
+CALL UpdateCustomer(1, "Nordhafen",44,30159,"Hannover","Denmark");
 CALL insertShipper('FactoryFracters', 'Kopernikusstrasse', 27, 40192,'Holmstedt', 'Germany','01805 827394');
 CALL insertWarehouse('Lager Hannover', 'Kniestrasse',15,'30167','Hannover','Germany');
 CALL insertPersonal('Gabi Meyer', "Nordhafen",7,30159,"Hannover", "Germany",3,"0123456","Gabi@ganzgern.de","Azubi",3);
