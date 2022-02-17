@@ -16,8 +16,8 @@
 -- PLACE AN ORDER
 	SELECT ProductID, Productname, Price FROM Products;
     SELECT * FROM Shippers WHERE ShipperName = 'BigBernd';
-    SELECT * FROM quantityInWarehouse WHERE ID = 1 OR ID = 6 OR ID = 9;
-	CALL PlaceMultipleOrders(11,'1,9,6','1,1,1',6); 
+    SELECT * FROM quantityInWarehouse WHERE ID = 1 OR ID = 6 OR ID = 10;
+	CALL PlaceMultipleOrders(11,'1,9,10','1,1,1',6); 
     SELECT * FROM Orders WHERE CustomerID = 11;
     SELECT * FROM Orderdetails WHERE OrderID = 50;
 	SELECT * FROM quantityInWarehouse WHERE ID = 1 OR ID = 6 OR ID = 9;
