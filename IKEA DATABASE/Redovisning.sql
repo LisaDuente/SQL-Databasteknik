@@ -6,23 +6,27 @@
     CALL updateCustomer(11,'Nordhafen',7,1010,'Hirtshals','Denmark');
     SELECT * FROM customers  WHERE CustomerName = 'Marie' AND CustomerSurname = 'Curie';
     SELECT * FROM TransactionHistory WHERE `Type`= 3 AND `Reference` = 'C11';
-    CALL insertBankinfo(11,'DE00 0000 0000 0000','HAHAHAHA','-','-');
+    CALL insertBankinfo(11,'DE00 0000 0000 0000','HAHAHA','2387948','3647');
     SELECT * FROM Bankinformation WHERE CustomerID = 11;
+    
+    ALTER TABLE Bankinformation MODIFY BIC VARCHAR(255);
+    
+    CALL insertShipper('Newton', 'Gatan',21,10298,'Stockholm','Sweden','017897488');
 
 -- PLACE AN ORDER
 	SELECT ProductID, Productname, Price FROM Products;
     SELECT * FROM Shippers WHERE ShipperName = 'BigBernd';
     SELECT * FROM quantityInWarehouse WHERE ID = 1 OR ID = 6 OR ID = 9;
 	CALL PlaceMultipleOrders(11,'1,9,6','1,1,1',6); 
-    SELECT * FROM Orders WHERE CustomerID = 10;
-    SELECT * FROM Orderdetails WHERE OrderID = 47;
+    SELECT * FROM Orders WHERE CustomerID = 11;
+    SELECT * FROM Orderdetails WHERE OrderID = 50;
 	SELECT * FROM quantityInWarehouse WHERE ID = 1 OR ID = 6 OR ID = 9;
     SELECT * FROM TransactionHistory WHERE `Type`= 1 AND `Reference` = 11;
-    SELECT * FROM showOrderStatus WHERE OrderID = 47;
-    UPDATE orders SET PayStatus = 2 WHERE OrderID = 47;
-    UPDATE orders SET ShippingDate = NOW() WHERE OrderID = 47;
-    UPDATE orders SET OrderStatusID = 2 WHERE OrderID = 47;
-    SELECT * FROM showOrderStatus WHERE OrderID = 47;
+    SELECT * FROM showOrderStatus WHERE OrderID = 50;
+    UPDATE orders SET PayStatus = 2 WHERE OrderID = 50;
+    UPDATE orders SET ShippingDate = NOW() WHERE OrderID = 50;
+    UPDATE orders SET OrderStatusID = 2 WHERE OrderID = 50;
+    SELECT * FROM showOrderStatus WHERE OrderID = 50;
     
 -- DEMONSTRATE SOME VIEWS
 	SELECT * FROM contactinfoemployees;
